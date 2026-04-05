@@ -2,24 +2,42 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
   <title>Xhuna | Planeador de comidas</title>
   <meta
     name="description"
-    content="Xhuna te ayuda a organizar tus comidas de la semana de forma simple, práctica y sin estrés."
+    content="Xhuna te ayuda a organizar tus comidas de la semana de forma simple, visual y sin estrés."
   />
+  <meta
+    http-equiv="Cache-Control"
+    content="no-cache, no-store, must-revalidate"
+  />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
   <style>
     :root {
-      --xhuna-purple: #6d5dfc;
-      --xhuna-blue: #3b82f6;
-      --xhuna-green: #22c55e;
-      --xhuna-dark: #101828;
-      --xhuna-text: #1f2937;
-      --xhuna-muted: #667085;
-      --xhuna-bg: #f5f7fb;
-      --xhuna-card: rgba(255, 255, 255, 0.82);
-      --xhuna-border: rgba(255, 255, 255, 0.55);
-      --shadow: 0 20px 60px rgba(35, 46, 66, 0.16);
+      --bg: #f6f8fc;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface-strong: #ffffff;
+      --text: #101828;
+      --muted: #667085;
+      --line: rgba(16, 24, 40, 0.08);
+
+      --purple: #6f5cff;
+      --blue: #2f80ff;
+      --green: #22c55e;
+
+      --shadow-xl: 0 24px 70px rgba(22, 34, 58, 0.14);
+      --shadow-lg: 0 16px 40px rgba(22, 34, 58, 0.12);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --max: 1180px;
     }
 
     * {
@@ -32,44 +50,119 @@
 
     body {
       margin: 0;
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      color: var(--xhuna-text);
+      color: var(--text);
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at 15% 20%, rgba(109, 93, 252, 0.22), transparent 24%),
-        radial-gradient(circle at 85% 15%, rgba(59, 130, 246, 0.18), transparent 22%),
-        radial-gradient(circle at 70% 80%, rgba(34, 197, 94, 0.16), transparent 22%),
-        linear-gradient(135deg, #eef2ff 0%, #f5f7fb 45%, #eefaf3 100%);
+        radial-gradient(circle at 8% 12%, rgba(111, 92, 255, 0.16), transparent 22%),
+        radial-gradient(circle at 88% 14%, rgba(47, 128, 255, 0.14), transparent 24%),
+        radial-gradient(circle at 72% 82%, rgba(34, 197, 94, 0.12), transparent 24%),
+        linear-gradient(180deg, #eef3ff 0%, #f6f8fc 44%, #f2fbf5 100%);
       min-height: 100vh;
     }
 
-    .page {
-      width: 100%;
-      min-height: 100vh;
+    a {
+      color: inherit;
+    }
+
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      padding: 22px 0 10px;
+    }
+
+    .header-row {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 32px 18px;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border: 1px solid rgba(255,255,255,0.65);
+      background: rgba(255,255,255,0.52);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(24, 39, 75, 0.06);
     }
 
-    .shell {
-      width: 100%;
-      max-width: 1120px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, var(--purple) 0%, var(--blue) 55%, var(--green) 100%);
+      box-shadow: 0 10px 24px rgba(79, 110, 226, 0.28);
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.24);
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .header-contact {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .header-contact:hover {
+      color: var(--text);
+    }
+
+    .hero-wrap {
+      padding: 18px 0 28px;
     }
 
     .hero {
       position: relative;
       overflow: hidden;
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 32px;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 34px;
       align-items: center;
-      padding: 56px;
-      border-radius: 32px;
-      background: var(--xhuna-card);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--xhuna-border);
-      box-shadow: var(--shadow);
+      padding: 58px;
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-xl);
     }
 
     .hero::before {
@@ -77,248 +170,433 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(135deg, rgba(109, 93, 252, 0.08), transparent 35%),
-        linear-gradient(225deg, rgba(59, 130, 246, 0.08), transparent 32%),
-        linear-gradient(315deg, rgba(34, 197, 94, 0.07), transparent 28%);
+        linear-gradient(135deg, rgba(111, 92, 255, 0.07), transparent 34%),
+        linear-gradient(225deg, rgba(47, 128, 255, 0.06), transparent 30%),
+        linear-gradient(325deg, rgba(34, 197, 94, 0.05), transparent 28%);
       pointer-events: none;
     }
 
-    .content,
-    .visual {
+    .hero-left,
+    .hero-right {
       position: relative;
       z-index: 1;
     }
 
-    .badge {
+    .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 16px;
+      padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid rgba(109, 93, 252, 0.12);
-      color: var(--xhuna-dark);
-      font-size: 14px;
-      font-weight: 700;
+      background: rgba(255,255,255,0.74);
+      border: 1px solid rgba(16,24,40,0.06);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 800;
       letter-spacing: 0.01em;
       margin-bottom: 18px;
     }
 
-    .badge-dot {
+    .eyebrow-dot {
       width: 10px;
       height: 10px;
-      border-radius: 50%;
-      background: linear-gradient(
-        135deg,
-        var(--xhuna-purple),
-        var(--xhuna-blue),
-        var(--xhuna-green)
-      );
-      box-shadow: 0 0 0 6px rgba(109, 93, 252, 0.08);
+      border-radius: 999px;
+      background:
+        linear-gradient(135deg, var(--purple), var(--blue), var(--green));
+      box-shadow: 0 0 0 6px rgba(111, 92, 255, 0.08);
     }
 
     h1 {
-      margin: 0 0 14px;
-      font-size: clamp(42px, 6vw, 72px);
-      line-height: 0.98;
-      letter-spacing: -0.04em;
-      color: var(--xhuna-dark);
+      margin: 0;
+      font-size: clamp(46px, 7vw, 82px);
+      line-height: 0.94;
+      letter-spacing: -0.055em;
+    }
+
+    .headline-accent {
+      background:
+        linear-gradient(135deg, var(--purple) 0%, var(--blue) 55%, var(--green) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .subtitle {
-      margin: 0 0 18px;
-      font-size: clamp(20px, 2vw, 24px);
-      line-height: 1.35;
-      color: var(--xhuna-dark);
-      font-weight: 700;
+      margin: 20px 0 0;
       max-width: 640px;
+      font-size: clamp(20px, 2vw, 24px);
+      line-height: 1.36;
+      font-weight: 700;
+      color: var(--text);
     }
 
     .description {
-      margin: 0 0 30px;
-      font-size: 18px;
-      line-height: 1.7;
-      color: var(--xhuna-muted);
+      margin: 18px 0 0;
       max-width: 620px;
+      font-size: 18px;
+      line-height: 1.74;
+      color: var(--muted);
     }
 
-    .actions {
+    .contact-row {
+      margin-top: 30px;
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      margin-bottom: 28px;
+      align-items: center;
     }
 
-    .btn {
+    .cta-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
       min-height: 54px;
       padding: 0 22px;
       border-radius: 16px;
       text-decoration: none;
       font-weight: 800;
       font-size: 16px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      color: white;
+      background:
+        linear-gradient(135deg, var(--purple) 0%, var(--blue) 55%, var(--green) 100%);
+      box-shadow: 0 16px 34px rgba(71, 108, 224, 0.28);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .btn:hover {
+    .cta-link:hover {
       transform: translateY(-2px);
+      box-shadow: 0 20px 38px rgba(71, 108, 224, 0.33);
     }
 
-    .btn-primary {
-      color: #fff;
-      background: linear-gradient(
-        135deg,
-        var(--xhuna-purple) 0%,
-        var(--xhuna-blue) 55%,
-        var(--xhuna-green) 100%
-      );
-      box-shadow: 0 14px 30px rgba(74, 104, 224, 0.28);
-    }
-
-    .btn-secondary {
-      color: var(--xhuna-dark);
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(16, 24, 40, 0.08);
-    }
-
-    .mini-note {
+    .cta-note {
       font-size: 14px;
-      color: var(--xhuna-muted);
-      font-weight: 600;
+      color: var(--muted);
+      font-weight: 700;
     }
 
-    .features {
+    .hero-points {
+      margin-top: 30px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
-      margin-top: 28px;
     }
 
-    .feature {
+    .point {
       padding: 18px 16px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(16, 24, 40, 0.05);
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(16,24,40,0.05);
+      box-shadow: 0 8px 20px rgba(16, 24, 40, 0.04);
     }
 
-    .feature-title {
+    .point-kicker {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .point-kicker.purple { color: var(--purple); }
+    .point-kicker.blue { color: var(--blue); }
+    .point-kicker.green { color: var(--green); }
+
+    .point-title {
       margin: 0 0 6px;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 800;
-      color: var(--xhuna-dark);
+      letter-spacing: -0.02em;
     }
 
-    .feature-text {
+    .point-text {
       margin: 0;
+      color: var(--muted);
       font-size: 14px;
-      line-height: 1.55;
-      color: var(--xhuna-muted);
+      line-height: 1.6;
+    }
+
+    .phone-shell {
+      width: min(100%, 390px);
+      margin-left: auto;
+      padding: 14px;
+      border-radius: 36px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(247,249,255,0.98) 100%);
+      border: 1px solid rgba(255,255,255,0.82);
+      box-shadow: 0 26px 64px rgba(26, 37, 63, 0.2);
     }
 
     .phone {
-      margin-left: auto;
-      width: min(100%, 360px);
-      border-radius: 34px;
-      padding: 16px;
-      background: linear-gradient(180deg, #ffffff 0%, #f6f8fd 100%);
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      box-shadow: 0 24px 60px rgba(32, 42, 66, 0.18);
-    }
-
-    .phone-frame {
-      border-radius: 26px;
       overflow: hidden;
-      background: #ffffff;
-      border: 1px solid rgba(16, 24, 40, 0.08);
+      border-radius: 28px;
+      border: 1px solid rgba(16,24,40,0.06);
+      background: #fff;
     }
 
     .phone-top {
-      height: 64px;
-      background:
-        linear-gradient(135deg, rgba(109, 93, 252, 0.95), rgba(59, 130, 246, 0.95));
+      height: 74px;
+      padding: 0 18px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       color: white;
+      background:
+        linear-gradient(135deg, rgba(111, 92, 255, 0.98), rgba(47, 128, 255, 0.98));
+    }
+
+    .phone-top-title {
       font-weight: 800;
       font-size: 18px;
       letter-spacing: -0.02em;
     }
 
-    .phone-body {
-      padding: 18px;
-      background:
-        radial-gradient(circle at top right, rgba(34, 197, 94, 0.09), transparent 35%),
-        #ffffff;
+    .phone-top-pill {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      font-size: 12px;
+      font-weight: 800;
     }
 
-    .mock-card {
+    .phone-body {
       padding: 16px;
-      border-radius: 18px;
+      background:
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.08), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
+    }
+
+    .mock-panel {
+      padding: 16px;
+      border-radius: 20px;
       background: #f8fafc;
-      border: 1px solid rgba(16, 24, 40, 0.05);
+      border: 1px solid rgba(16,24,40,0.05);
       margin-bottom: 12px;
     }
 
-    .mock-card strong {
-      display: block;
-      margin-bottom: 10px;
+    .mock-title {
+      margin: 0 0 12px;
       font-size: 15px;
-      color: var(--xhuna-dark);
+      font-weight: 800;
+      color: var(--text);
     }
 
-    .row {
+    .meal-row,
+    .stat-row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      margin: 8px 0;
+      padding: 10px 0;
       font-size: 14px;
-      color: var(--xhuna-text);
     }
 
-    .pill {
+    .meal-row + .meal-row,
+    .stat-row + .stat-row {
+      border-top: 1px solid rgba(16,24,40,0.05);
+    }
+
+    .tag {
       padding: 6px 10px;
       border-radius: 999px;
+      color: white;
       font-size: 12px;
       font-weight: 800;
-      color: #fff;
       white-space: nowrap;
     }
 
-    .pill-purple { background: var(--xhuna-purple); }
-    .pill-blue { background: var(--xhuna-blue); }
-    .pill-green { background: var(--xhuna-green); }
+    .tag.purple { background: var(--purple); }
+    .tag.blue { background: var(--blue); }
+    .tag.green { background: var(--green); }
 
-    .footer-note {
-      margin-top: 16px;
-      text-align: center;
-      font-size: 13px;
-      color: var(--xhuna-muted);
-      font-weight: 600;
+    .status-ok {
+      color: var(--green);
+      font-weight: 900;
     }
 
-    @media (max-width: 920px) {
+    .section {
+      padding: 18px 0 56px;
+    }
+
+    .section-card {
+      padding: 34px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(255,255,255,0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .section-kicker {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(28px, 3.2vw, 40px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .section-copy {
+      max-width: 640px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.72;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .feature-card {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(16,24,40,0.05);
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      color: white;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .feature-icon.purple { background: linear-gradient(135deg, #7f6bff, #6f5cff); }
+    .feature-icon.blue { background: linear-gradient(135deg, #4e95ff, #2f80ff); }
+    .feature-icon.green { background: linear-gradient(135deg, #31d96d, #22c55e); }
+
+    .feature-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.68;
+      font-size: 15px;
+    }
+
+    .contact-block {
+      margin-top: 22px;
+      padding: 22px;
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(111,92,255,0.08), rgba(47,128,255,0.06), rgba(34,197,94,0.08));
+      border: 1px solid rgba(16,24,40,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .contact-block-title {
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-block-copy {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .contact-email {
+      text-decoration: none;
+      font-weight: 900;
+      color: var(--text);
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(16,24,40,0.06);
+      white-space: nowrap;
+    }
+
+    .site-footer {
+      padding: 0 0 28px;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 14px;
+      padding: 8px 2px;
+    }
+
+    @media (max-width: 980px) {
       .hero {
         grid-template-columns: 1fr;
         padding: 34px 22px;
       }
 
-      .phone {
-        margin: 8px auto 0;
+      .phone-shell {
+        margin: 0 auto;
       }
 
-      .features {
+      .hero-points,
+      .grid-3 {
         grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: start;
       }
     }
 
-    @media (max-width: 560px) {
-      .page {
-        padding: 18px 12px;
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 20px, var(--max));
+      }
+
+      .site-header {
+        padding-top: 12px;
+      }
+
+      .header-row {
+        padding: 12px 14px;
+      }
+
+      .brand-title {
+        font-size: 18px;
+      }
+
+      .header-contact {
+        display: none;
       }
 
       .hero {
@@ -328,126 +606,226 @@
       }
 
       .subtitle {
-        font-size: 20px;
+        font-size: 19px;
       }
 
       .description {
         font-size: 16px;
       }
 
-      .actions {
+      .contact-row {
+        align-items: flex-start;
         flex-direction: column;
       }
 
-      .btn {
+      .cta-link {
         width: 100%;
+      }
+
+      .section-card {
+        padding: 24px 16px;
+        border-radius: 22px;
+      }
+
+      .footer-row {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <div class="shell">
-      <section class="hero">
-        <div class="content">
-          <div class="badge">
-            <span class="badge-dot"></span>
-            Próximamente en Google Play
-          </div>
-
-          <h1>Xhuna</h1>
-
-          <p class="subtitle">
-            Tu planeador de comidas para organizar tu semana de forma simple,
-            práctica y sin estrés.
-          </p>
-
-          <p class="description">
-            Planea tus comidas, ordena tu semana y toma mejores decisiones cada día
-            con una experiencia visual limpia, ligera y pensada para tu vida real.
-          </p>
-
-          <div class="actions">
-            <a class="btn btn-primary" href="mailto:hola@xhunaapp.com">
-              Contáctanos
-            </a>
-            <a class="btn btn-secondary" href="mailto:hola@xhunaapp.com?subject=Quiero%20saber%20m%C3%A1s%20de%20Xhuna">
-              Saber más
-            </a>
-          </div>
-
-          <div class="mini-note">
-            Hecho para quienes quieren comer mejor sin complicarse.
-          </div>
-
-          <div class="features">
-            <div class="feature">
-              <p class="feature-title">Planeación simple</p>
-              <p class="feature-text">
-                Organiza tu semana con una interfaz clara y fácil de usar.
-              </p>
-            </div>
-            <div class="feature">
-              <p class="feature-title">Menús prácticos</p>
-              <p class="feature-text">
-                Visualiza tus comidas y reduce el estrés de decidir cada día.
-              </p>
-            </div>
-            <div class="feature">
-              <p class="feature-title">Diseño limpio</p>
-              <p class="feature-text">
-                Una experiencia moderna, agradable y enfocada en lo importante.
-              </p>
-            </div>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-row">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div class="brand-text">
+            <div class="brand-title">Xhuna</div>
+            <div class="brand-subtitle">Planeador de comidas</div>
           </div>
         </div>
+        <a class="header-contact" href="mailto:hola@xhunaapp.com">
+          hola@xhunaapp.com
+        </a>
+      </div>
+    </div>
+  </header>
 
-        <div class="visual">
-          <div class="phone">
-            <div class="phone-frame">
-              <div class="phone-top">Xhuna</div>
-              <div class="phone-body">
-                <div class="mock-card">
-                  <strong>Tu semana</strong>
-                  <div class="row">
-                    <span>Lunes</span>
-                    <span class="pill pill-purple">Desayuno</span>
-                  </div>
-                  <div class="row">
-                    <span>Martes</span>
-                    <span class="pill pill-blue">Comida</span>
-                  </div>
-                  <div class="row">
-                    <span>Miércoles</span>
-                    <span class="pill pill-green">Cena</span>
-                  </div>
+  <main>
+    <section class="hero-wrap">
+      <div class="container">
+        <div class="hero">
+          <div class="hero-left">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              Próximamente en Google Play
+            </div>
+
+            <h1>
+              Organiza tu semana
+              <span class="headline-accent">sin estrés.</span>
+            </h1>
+
+            <p class="subtitle">
+              Xhuna convierte la planeación de comidas en una experiencia simple,
+              visual y agradable.
+            </p>
+
+            <p class="description">
+              Diseñada para ayudarte a decidir mejor qué comer, mantener orden en tu
+              semana y disfrutar una rutina más práctica todos los días.
+            </p>
+
+            <div class="contact-row">
+              <a class="cta-link" href="mailto:hola@xhunaapp.com">
+                Escríbenos
+              </a>
+              <div class="cta-note">
+                Contacto oficial: hola@xhunaapp.com
+              </div>
+            </div>
+
+            <div class="hero-points">
+              <div class="point">
+                <div class="point-kicker purple">Simple</div>
+                <h3 class="point-title">Planeación clara</h3>
+                <p class="point-text">
+                  Una forma limpia de visualizar tus comidas y estructurar tu semana.
+                </p>
+              </div>
+
+              <div class="point">
+                <div class="point-kicker blue">Práctica</div>
+                <h3 class="point-title">Menos fricción</h3>
+                <p class="point-text">
+                  Reduce el tiempo de decidir qué cocinar y mantén el control.
+                </p>
+              </div>
+
+              <div class="point">
+                <div class="point-kicker green">Ligera</div>
+                <h3 class="point-title">Diseño agradable</h3>
+                <p class="point-text">
+                  Una experiencia moderna pensada para sentirse útil desde el primer uso.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <div class="phone-shell">
+              <div class="phone">
+                <div class="phone-top">
+                  <div class="phone-top-title">Xhuna</div>
+                  <div class="phone-top-pill">Tu semana</div>
                 </div>
 
-                <div class="mock-card">
-                  <strong>Tu enfoque</strong>
-                  <div class="row">
-                    <span>Menos estrés</span>
-                    <span>✓</span>
-                  </div>
-                  <div class="row">
-                    <span>Más orden</span>
-                    <span>✓</span>
-                  </div>
-                  <div class="row">
-                    <span>Mejor semana</span>
-                    <span>✓</span>
-                  </div>
-                </div>
+                <div class="phone-body">
+                  <div class="mock-panel">
+                    <p class="mock-title">Menú semanal</p>
 
-                <div class="footer-note">
-                  Próximamente disponible
+                    <div class="meal-row">
+                      <span>Lunes</span>
+                      <span class="tag purple">Desayuno</span>
+                    </div>
+                    <div class="meal-row">
+                      <span>Martes</span>
+                      <span class="tag blue">Comida</span>
+                    </div>
+                    <div class="meal-row">
+                      <span>Miércoles</span>
+                      <span class="tag green">Cena</span>
+                    </div>
+                  </div>
+
+                  <div class="mock-panel">
+                    <p class="mock-title">Beneficios</p>
+
+                    <div class="stat-row">
+                      <span>Menos decisiones diarias</span>
+                      <span class="status-ok">✓</span>
+                    </div>
+                    <div class="stat-row">
+                      <span>Mayor orden semanal</span>
+                      <span class="status-ok">✓</span>
+                    </div>
+                    <div class="stat-row">
+                      <span>Mejor experiencia al planear</span>
+                      <span class="status-ok">✓</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Xhuna</p>
+              <h2 class="section-title">Una forma más elegante de planear tus comidas</h2>
+            </div>
+            <p class="section-copy">
+              Pensada para quienes quieren comer mejor, tener más orden y reducir la
+              carga mental de decidir todos los días.
+            </p>
+          </div>
+
+          <div class="grid-3">
+            <article class="feature-card">
+              <div class="feature-icon purple">01</div>
+              <h3>Orden visual</h3>
+              <p>
+                Visualiza tu semana de manera clara para entender rápidamente qué toca cada día.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon blue">02</div>
+              <h3>Rutina más ligera</h3>
+              <p>
+                Planea con menos esfuerzo y evita improvisar a última hora.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon green">03</div>
+              <h3>Experiencia agradable</h3>
+              <p>
+                Un enfoque limpio, moderno y práctico para acompañar tu vida diaria.
+              </p>
+            </article>
+          </div>
+
+          <div class="contact-block">
+            <div>
+              <p class="contact-block-title">¿Quieres saber más sobre Xhuna?</p>
+              <p class="contact-block-copy">
+                Escríbenos y con gusto te compartimos información y actualizaciones.
+              </p>
+            </div>
+            <a class="contact-email" href="mailto:hola@xhunaapp.com">
+              hola@xhunaapp.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <div>© 2026 Xhuna</div>
+        <div>Planeador de comidas</div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
