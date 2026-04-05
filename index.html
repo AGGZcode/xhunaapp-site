@@ -3,59 +3,451 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xhuna</title>
-  <meta name="description" content="Xhuna, tu planeador de comidas." />
+  <title>Xhuna | Planeador de comidas</title>
+  <meta
+    name="description"
+    content="Xhuna te ayuda a organizar tus comidas de la semana de forma simple, práctica y sin estrés."
+  />
   <style>
+    :root {
+      --xhuna-purple: #6d5dfc;
+      --xhuna-blue: #3b82f6;
+      --xhuna-green: #22c55e;
+      --xhuna-dark: #101828;
+      --xhuna-text: #1f2937;
+      --xhuna-muted: #667085;
+      --xhuna-bg: #f5f7fb;
+      --xhuna-card: rgba(255, 255, 255, 0.82);
+      --xhuna-border: rgba(255, 255, 255, 0.55);
+      --shadow: 0 20px 60px rgba(35, 46, 66, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f7f5;
-      color: #1f1f1f;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--xhuna-text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(109, 93, 252, 0.22), transparent 24%),
+        radial-gradient(circle at 85% 15%, rgba(59, 130, 246, 0.18), transparent 22%),
+        radial-gradient(circle at 70% 80%, rgba(34, 197, 94, 0.16), transparent 22%),
+        linear-gradient(135deg, #eef2ff 0%, #f5f7fb 45%, #eefaf3 100%);
+      min-height: 100vh;
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 24px;
+      padding: 32px 18px;
     }
-    .card {
-      max-width: 640px;
-      background: white;
-      padding: 40px 28px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
     }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      align-items: center;
+      padding: 56px;
+      border-radius: 32px;
+      background: var(--xhuna-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--xhuna-border);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(109, 93, 252, 0.08), transparent 35%),
+        linear-gradient(225deg, rgba(59, 130, 246, 0.08), transparent 32%),
+        linear-gradient(315deg, rgba(34, 197, 94, 0.07), transparent 28%);
+      pointer-events: none;
+    }
+
+    .content,
+    .visual {
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(109, 93, 252, 0.12);
+      color: var(--xhuna-dark);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin-bottom: 18px;
+    }
+
+    .badge-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        var(--xhuna-purple),
+        var(--xhuna-blue),
+        var(--xhuna-green)
+      );
+      box-shadow: 0 0 0 6px rgba(109, 93, 252, 0.08);
+    }
+
     h1 {
-      font-size: 42px;
+      margin: 0 0 14px;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      color: var(--xhuna-dark);
+    }
+
+    .subtitle {
+      margin: 0 0 18px;
+      font-size: clamp(20px, 2vw, 24px);
+      line-height: 1.35;
+      color: var(--xhuna-dark);
+      font-weight: 700;
+      max-width: 640px;
+    }
+
+    .description {
+      margin: 0 0 30px;
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--xhuna-muted);
+      max-width: 620px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 16px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(
+        135deg,
+        var(--xhuna-purple) 0%,
+        var(--xhuna-blue) 55%,
+        var(--xhuna-green) 100%
+      );
+      box-shadow: 0 14px 30px rgba(74, 104, 224, 0.28);
+    }
+
+    .btn-secondary {
+      color: var(--xhuna-dark);
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(16, 24, 40, 0.08);
+    }
+
+    .mini-note {
+      font-size: 14px;
+      color: var(--xhuna-muted);
+      font-weight: 600;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .feature {
+      padding: 18px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(16, 24, 40, 0.05);
+    }
+
+    .feature-title {
+      margin: 0 0 6px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--xhuna-dark);
+    }
+
+    .feature-text {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--xhuna-muted);
+    }
+
+    .phone {
+      margin-left: auto;
+      width: min(100%, 360px);
+      border-radius: 34px;
+      padding: 16px;
+      background: linear-gradient(180deg, #ffffff 0%, #f6f8fd 100%);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 24px 60px rgba(32, 42, 66, 0.18);
+    }
+
+    .phone-frame {
+      border-radius: 26px;
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid rgba(16, 24, 40, 0.08);
+    }
+
+    .phone-top {
+      height: 64px;
+      background:
+        linear-gradient(135deg, rgba(109, 93, 252, 0.95), rgba(59, 130, 246, 0.95));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .phone-body {
+      padding: 18px;
+      background:
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.09), transparent 35%),
+        #ffffff;
+    }
+
+    .mock-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: #f8fafc;
+      border: 1px solid rgba(16, 24, 40, 0.05);
       margin-bottom: 12px;
     }
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 24px;
+
+    .mock-card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 15px;
+      color: var(--xhuna-dark);
     }
-    .btn {
-      display: inline-block;
-      padding: 14px 22px;
-      background: #111111;
-      color: white;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: bold;
-    }
-    .small {
-      margin-top: 20px;
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 8px 0;
       font-size: 14px;
-      color: #666;
+      color: var(--xhuna-text);
+    }
+
+    .pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .pill-purple { background: var(--xhuna-purple); }
+    .pill-blue { background: var(--xhuna-blue); }
+    .pill-green { background: var(--xhuna-green); }
+
+    .footer-note {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--xhuna-muted);
+      font-weight: 600;
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 34px 22px;
+      }
+
+      .phone {
+        margin: 8px auto 0;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        padding: 18px 12px;
+      }
+
+      .hero {
+        border-radius: 24px;
+        padding: 26px 16px;
+        gap: 22px;
+      }
+
+      .subtitle {
+        font-size: 20px;
+      }
+
+      .description {
+        font-size: 16px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Xhuna</h1>
-    <p>Tu planeador de comidas para organizar tu semana de forma simple, práctica y sin estrés.</p>
-    <a class="btn" href="mailto:hola@xhunaapp.com">Contáctanos</a>
-    <div class="small">Próximamente en Google Play</div>
-  </div>
+  <main class="page">
+    <div class="shell">
+      <section class="hero">
+        <div class="content">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Próximamente en Google Play
+          </div>
+
+          <h1>Xhuna</h1>
+
+          <p class="subtitle">
+            Tu planeador de comidas para organizar tu semana de forma simple,
+            práctica y sin estrés.
+          </p>
+
+          <p class="description">
+            Planea tus comidas, ordena tu semana y toma mejores decisiones cada día
+            con una experiencia visual limpia, ligera y pensada para tu vida real.
+          </p>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="mailto:hola@xhunaapp.com">
+              Contáctanos
+            </a>
+            <a class="btn btn-secondary" href="mailto:hola@xhunaapp.com?subject=Quiero%20saber%20m%C3%A1s%20de%20Xhuna">
+              Saber más
+            </a>
+          </div>
+
+          <div class="mini-note">
+            Hecho para quienes quieren comer mejor sin complicarse.
+          </div>
+
+          <div class="features">
+            <div class="feature">
+              <p class="feature-title">Planeación simple</p>
+              <p class="feature-text">
+                Organiza tu semana con una interfaz clara y fácil de usar.
+              </p>
+            </div>
+            <div class="feature">
+              <p class="feature-title">Menús prácticos</p>
+              <p class="feature-text">
+                Visualiza tus comidas y reduce el estrés de decidir cada día.
+              </p>
+            </div>
+            <div class="feature">
+              <p class="feature-title">Diseño limpio</p>
+              <p class="feature-text">
+                Una experiencia moderna, agradable y enfocada en lo importante.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="visual">
+          <div class="phone">
+            <div class="phone-frame">
+              <div class="phone-top">Xhuna</div>
+              <div class="phone-body">
+                <div class="mock-card">
+                  <strong>Tu semana</strong>
+                  <div class="row">
+                    <span>Lunes</span>
+                    <span class="pill pill-purple">Desayuno</span>
+                  </div>
+                  <div class="row">
+                    <span>Martes</span>
+                    <span class="pill pill-blue">Comida</span>
+                  </div>
+                  <div class="row">
+                    <span>Miércoles</span>
+                    <span class="pill pill-green">Cena</span>
+                  </div>
+                </div>
+
+                <div class="mock-card">
+                  <strong>Tu enfoque</strong>
+                  <div class="row">
+                    <span>Menos estrés</span>
+                    <span>✓</span>
+                  </div>
+                  <div class="row">
+                    <span>Más orden</span>
+                    <span>✓</span>
+                  </div>
+                  <div class="row">
+                    <span>Mejor semana</span>
+                    <span>✓</span>
+                  </div>
+                </div>
+
+                <div class="footer-note">
+                  Próximamente disponible
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
 </body>
 </html>
